@@ -28,8 +28,9 @@ export default function Navbar({ onBookTestDrive }: NavbarProps) {
 
   const navLinks = [
     { label: 'Buy Cars', href: '#popular-cars' },
-    { label: 'EMI Calculator', href: '#emi-calculator' },
+    { label: 'RTO Check', href: '#rto-check' },
     { label: 'Sell Your Car', href: '#sell-car' },
+    { label: 'EMI Calculator', href: '#emi-calculator' },
     { label: 'Brands', href: '#brands' },
   ];
 
