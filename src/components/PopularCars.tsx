@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Heart, Gauge, Fuel, ArrowRight, Star, MapPin } from 'lucide-react';
 import SteeringWheelIcon from './SteeringWheelIcon';
 import type { Car } from '../types';
 import { popularCars } from '../data/mockData';
 import { useLocation } from '../context/LocationContext';
+import { getAllInventoryCars } from '../services/adminService';
 
 const formatPrice = (p: number) =>
   p >= 10000000
@@ -119,7 +120,17 @@ function CarCard({ car, index, onBookTestDrive }: { car: Car; index: number; onB
 export default function PopularCars({ onBookTestDrive }: PopularCarsProps = {}) {
   const [showAll, setShowAll] = useState(false);
   const { city, openLocationModal } = useLocation();
-  const displayedCars = showAll ? popularCars : popularCars.slice(0, 6);
+  const [allCarsList, setAllCarsList] = useState<Car[]>(popularCars);
+
+  useEffect(() => {
+    getAllInventoryCars().then((res) => {
+      if (res && res.length > 0) {
+        setAllCarsList(res);
+      }
+    });
+  }, []);
+
+  const displayedCars = showAll ? allCarsList : allCarsList.slice(0, 6);
 
   return (
     <section id="popular-cars" className="section-padding bg-gray-50">

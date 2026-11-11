@@ -18,7 +18,11 @@ const socials = [
   { icon: Youtube, label: 'YouTube', href: '#' },
 ];
 
-export default function Footer() {
+interface FooterProps {
+  onOpenAdmin?: () => void;
+}
+
+export default function Footer({ onOpenAdmin }: FooterProps = {}) {
   return (
     <footer className="bg-[#060608] border-t border-white/5 text-white">
       {/* Newsletter Strip */}
@@ -124,6 +128,12 @@ export default function Footer() {
                 {link}
               </a>
             ))}
+            <button
+              onClick={onOpenAdmin}
+              className="text-white/25 hover:text-orange-400 text-xs transition-colors cursor-pointer"
+            >
+              🔒 Admin Portal
+            </button>
           </div>
         </div>
       </div>

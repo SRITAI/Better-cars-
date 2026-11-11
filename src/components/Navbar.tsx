@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  MapPin, Search, Heart, User, ChevronDown, Menu, X, Sun, Moon
+  MapPin, Search, Heart, User, ChevronDown, Menu, X, Sun, Moon, Shield
 } from 'lucide-react';
 import Logo from './Logo';
 import SteeringWheelIcon from './SteeringWheelIcon';
@@ -10,9 +10,10 @@ import { useLocation } from '../context/LocationContext';
 
 interface NavbarProps {
   onBookTestDrive?: () => void;
+  onOpenAdmin?: () => void;
 }
 
-export default function Navbar({ onBookTestDrive }: NavbarProps) {
+export default function Navbar({ onBookTestDrive, onOpenAdmin }: NavbarProps) {
   const { theme, toggleTheme } = useTheme();
   const { city, openLocationModal } = useLocation();
   const [scrolled, setScrolled] = useState(false);
@@ -171,6 +172,23 @@ export default function Navbar({ onBookTestDrive }: NavbarProps) {
                 <User className="w-3.5 h-3.5" />
                 <span>Sign In</span>
               </motion.button>
+
+              {/* Discreet Small Admin Portal Button */}
+              <motion.button
+                onClick={onOpenAdmin}
+                whileTap={{ scale: 0.93 }}
+                whileHover={{ scale: 1.05 }}
+                className={`flex items-center gap-1 px-2 py-1.5 rounded-lg text-[10px] font-bold tracking-wider uppercase transition-all border ${
+                  isDark
+                    ? 'border-white/10 bg-white/5 hover:border-orange-500/50 hover:bg-orange-500/10 text-white/40 hover:text-orange-400'
+                    : 'border-gray-200 bg-gray-100/80 hover:border-orange-400 text-gray-500 hover:text-orange-600'
+                }`}
+                title="Dealership Admin & CRM Portal"
+                aria-label="Admin Portal"
+              >
+                <Shield className="w-2.5 h-2.5 text-orange-500" />
+                <span>Admin</span>
+              </motion.button>
             </div>
 
             {/* Mobile Actions: Test Drive + Theme Toggle + Menu */}
@@ -301,6 +319,18 @@ export default function Navbar({ onBookTestDrive }: NavbarProps) {
                   <button className="flex items-center justify-center gap-2 bg-orange-500 text-white px-4 py-3 rounded-xl text-sm font-semibold shadow-lg shadow-orange-500/20">
                     <User className="w-4 h-4" />
                     Sign In
+                  </button>
+                  <button
+                    onClick={() => {
+                      setMobileOpen(false);
+                      onOpenAdmin?.();
+                    }}
+                    className={`flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-semibold ${
+                      isDark ? 'text-white/40 hover:text-white' : 'text-gray-400 hover:text-gray-700'
+                    }`}
+                  >
+                    <Shield className="w-3 h-3 text-orange-500" />
+                    <span>Admin & CRM Portal</span>
                   </button>
                 </div>
               </div>
