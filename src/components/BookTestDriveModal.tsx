@@ -254,7 +254,7 @@ export default function BookTestDriveModal({
                     <div>
                       <span className={`block ${isDark ? 'text-white/40' : 'text-gray-400'}`}>Location:</span>
                       <span className="font-semibold">
-                        {testDriveMode === 'home' ? '🏠 Doorstep Home Delivery' : '🏢 AutoVault Hub Lounge'}
+                        {testDriveMode === 'home' ? '🏠 Doorstep Home Delivery' : '🏢 BetterCars Flagship Hub'}
                       </span>
                       <span className={`block text-[11px] truncate ${isDark ? 'text-white/60' : 'text-gray-600'}`}>
                         {testDriveMode === 'home' ? address : `${city} Flagship Hub`}

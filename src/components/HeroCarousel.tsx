@@ -92,26 +92,13 @@ export default function HeroCarousel({ onBookTestDrive }: HeroCarouselProps = {}
       />
 
       <div className="container-width relative z-10">
-        {/* 1. Header: Pill Badge + Big Headline */}
+        {/* 1. Header: Big Headline */}
         <div className="text-center max-w-4xl mx-auto mb-8">
           <motion.div
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
           >
-            <div
-              className={`inline-flex items-center gap-2 border text-xs font-semibold px-3.5 py-1 rounded-full mb-3 backdrop-blur-md transition-colors ${
-                isDark
-                  ? 'bg-orange-500/10 border-orange-500/25 text-orange-400'
-                  : 'bg-orange-50 border-orange-200 text-orange-600 shadow-sm'
-              }`}
-            >
-              <Sparkles className="w-3.5 h-3.5 text-orange-500" />
-              <span>AutoVault Premier Collection</span>
-              <span className="w-1 h-1 bg-orange-400/40 rounded-full" />
-              <span className={isDark ? 'text-white/70' : 'text-gray-600'}>Verified Luxury & Everyday Cars</span>
-            </div>
-
             <h1
               className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tight ${
                 isDark ? 'text-white' : 'text-gray-900'

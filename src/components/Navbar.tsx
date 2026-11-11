@@ -29,6 +29,7 @@ export default function Navbar({ onBookTestDrive, onOpenAdmin }: NavbarProps) {
 
   const navLinks = [
     { label: 'Buy Cars', href: '#popular-cars' },
+    { label: 'Car Library', href: '#car-library' },
     { label: 'RTO Check', href: '#rto-check' },
     { label: 'Sell Your Car', href: '#sell-car' },
     { label: 'EMI Calculator', href: '#emi-calculator' },

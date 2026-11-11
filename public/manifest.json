@@ -1,0 +1,22 @@
+{
+  "short_name": "BetterCars",
+  "name": "BetterCars — Everyone Deserves Pre-Owned Cars",
+  "description": "Certified pre-owned cars, instant RTO vehicle lookup, and same-day doorstep test drives.",
+  "icons": [
+    {
+      "src": "/bettercars-logo-white.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/bettercars-logo.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#070708",
+  "theme_color": "#f97316",
+  "display": "standalone",
+  "orientation": "portrait-primary"
+}

@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import HeroCarousel from './components/HeroCarousel';
 import SearchPanel from './components/SearchPanel';
 import RTOCarCheck from './components/RTOCarCheck';
+import CarLibrary from './components/CarLibrary';
 import PopularCars from './components/PopularCars';
 import UsedCarFinanceCalculator from './components/UsedCarFinanceCalculator';
 import TrustSection from './components/TrustSection';
@@ -12,6 +13,7 @@ import BudgetSection from './components/BudgetSection';
 import Testimonials from './components/Testimonials';
 import FAQSection from './components/FAQSection';
 import Footer from './components/Footer';
+import MobileBottomNav from './components/MobileBottomNav';
 import BookTestDriveModal from './components/BookTestDriveModal';
 import LocationModal from './components/LocationModal';
 import AdminAuthModal from './components/Admin/AdminAuthModal';
@@ -82,10 +84,11 @@ function MainContent() {
       theme === 'dark' ? 'bg-[#070708] text-white' : 'bg-white text-gray-900'
     }`}>
       <Navbar onBookTestDrive={() => handleOpenTestDrive()} onOpenAdmin={handleOpenAdmin} />
-      <main>
+      <main className="pb-16 md:pb-0">
         <HeroCarousel onBookTestDrive={handleOpenTestDrive} />
         <SearchPanel />
         <RTOCarCheck onSellThisCar={handleSellThisCar} />
+        <CarLibrary onBookTestDrive={handleOpenTestDrive} />
         <PopularCars onBookTestDrive={handleOpenTestDrive} />
         <UsedCarFinanceCalculator onBookTestDrive={handleOpenTestDrive} />
         <TrustSection />
@@ -96,6 +99,9 @@ function MainContent() {
         <FAQSection />
       </main>
       <Footer onOpenAdmin={handleOpenAdmin} />
+
+      {/* Android Native-Style Sticky Mobile Bottom Navigation Bar */}
+      <MobileBottomNav onBookTestDrive={() => handleOpenTestDrive()} />
 
       {/* Universal Book Test Drive Modal */}
       <BookTestDriveModal
