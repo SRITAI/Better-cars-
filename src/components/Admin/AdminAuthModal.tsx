@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Shield, Lock, X, ArrowRight, KeyRound, AlertCircle } from 'lucide-react';
+import { Shield, Lock, X, ArrowRight, Eye, EyeOff, AlertCircle, Sparkles } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 
 interface AdminAuthModalProps {
@@ -14,12 +14,14 @@ export default function AdminAuthModal({ isOpen, onClose, onSuccess }: AdminAuth
   const isDark = theme === 'dark';
 
   const [pin, setPin] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!pin.trim()) {
+    const cleanPin = pin.trim().toLowerCase();
+    if (!cleanPin) {
       setError('Please enter admin PIN');
       return;
     }
@@ -28,16 +30,21 @@ export default function AdminAuthModal({ isOpen, onClose, onSuccess }: AdminAuth
     setError('');
 
     setTimeout(() => {
-      // Default passcode: admin123 or 1234
-      if (pin === 'admin123' || pin === '1234' || pin === 'bettercars') {
+      // Allow case-insensitive admin123, 1234, admin, bettercars
+      if (['admin123', '1234', 'admin', 'bettercars'].includes(cleanPin)) {
         setIsLoading(false);
         setPin('');
         onSuccess();
       } else {
         setIsLoading(false);
-        setError('Invalid PIN. Hint: Use default passcode "admin123"');
+        setError('Invalid PIN. Click "Quick Fill: admin123" below to enter.');
       }
-    }, 400);
+    }, 200);
+  };
+
+  const handleQuickFill = () => {
+    setPin('admin123');
+    setError('');
   };
 
   if (!isOpen) return null;
@@ -84,24 +91,41 @@ export default function AdminAuthModal({ isOpen, onClose, onSuccess }: AdminAuth
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-xs font-semibold text-gray-400 mb-1.5 flex items-center gap-1.5">
-                <Lock className="w-3.5 h-3.5 text-orange-500" />
-                <span>Admin Passcode / PIN</span>
-              </label>
+              <div className="flex items-center justify-between mb-1.5">
+                <label className="text-xs font-semibold text-gray-400 flex items-center gap-1.5">
+                  <Lock className="w-3.5 h-3.5 text-orange-500" />
+                  <span>Admin Passcode / PIN</span>
+                </label>
+                <button
+                  type="button"
+                  onClick={handleQuickFill}
+                  className="text-[11px] font-bold text-orange-400 hover:text-orange-300 flex items-center gap-1 transition-colors"
+                >
+                  <Sparkles className="w-3 h-3" />
+                  <span>Click to auto-fill</span>
+                </button>
+              </div>
+
               <div className="relative">
                 <input
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   value={pin}
                   onChange={(e) => setPin(e.target.value)}
-                  placeholder="Enter passcode (default: admin123)"
+                  placeholder="admin123"
                   autoFocus
-                  className={`w-full px-3.5 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none ${
+                  className={`w-full pl-3.5 pr-10 py-2.5 rounded-xl border text-sm font-medium transition-all outline-none ${
                     isDark
                       ? 'bg-white/5 border-white/15 focus:border-orange-500 text-white placeholder:text-white/30'
                       : 'bg-gray-50 border-gray-200 focus:border-orange-500 text-gray-900'
                   }`}
                 />
-                <KeyRound className="absolute right-3 top-3 w-4 h-4 text-gray-400 pointer-events-none" />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-3 text-gray-400 hover:text-white transition-colors"
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
               </div>
             </div>
 
